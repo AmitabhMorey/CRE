@@ -3,15 +3,32 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
+// Validate required environment variables
+const requiredEnvVars = [
+  'VITE_FIREBASE_API_KEY',
+  'VITE_FIREBASE_AUTH_DOMAIN',
+  'VITE_FIREBASE_DATABASE_URL',
+  'VITE_FIREBASE_PROJECT_ID',
+  'VITE_FIREBASE_STORAGE_BUCKET',
+  'VITE_FIREBASE_MESSAGING_SENDER_ID',
+  'VITE_FIREBASE_APP_ID'
+];
+
+for (const envVar of requiredEnvVars) {
+  if (!import.meta.env[envVar]) {
+    throw new Error(`Missing required environment variable: ${envVar}`);
+  }
+}
+
 const firebaseConfig = {
-  apiKey: "AIzaSyD40Pjxyh82x-nYBya5iboTu9BG-kEsb58",
-  authDomain: "cr-e-556e5.firebaseapp.com",
-  databaseURL: "https://cr-e-556e5-default-rtdb.firebaseio.com",
-  projectId: "cr-e-556e5",
-  storageBucket: "cr-e-556e5.firebasestorage.app",
-  messagingSenderId: "314484950871",
-  appId: "1:314484950871:web:273bc393b7b04d33506012",
-  measurementId: "G-Q9SQFKCGBH"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
